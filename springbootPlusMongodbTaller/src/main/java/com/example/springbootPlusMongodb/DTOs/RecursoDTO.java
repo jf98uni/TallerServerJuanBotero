@@ -7,7 +7,7 @@ public class RecursoDTO {
     private String nombre;
     private String tipo;
     private String tema;
-    private Date fecha;
+    private String fecha;
     private Boolean prestado;
     public RecursoDTO() {
     }
@@ -29,26 +29,26 @@ public class RecursoDTO {
     }
 
     public String getTipo() {
-        return tipo;
+        return tipo.toLowerCase();
     }
 
     public void setTipo(String tipo) {
-        this.tipo = tipo;
+        this.tipo = tipo.toLowerCase();
     }
 
     public String getTema() {
-        return tema;
+        return tema.toLowerCase();
     }
 
     public void setTema(String tema) {
-        this.tema = tema;
+        this.tema = tema.toLowerCase();
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

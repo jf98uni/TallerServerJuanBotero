@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -27,18 +28,45 @@ public class ControladorRecurso {
         return new ResponseEntity(servicioRecurso.obtenerTodos(), HttpStatus.OK);
     }
 
+    @GetMapping("/consultar/{nombre}")
+    public ResponseEntity<String> consult(@PathVariable("nombre") String nombre){
+        return new ResponseEntity(servicioRecurso.disponibilidad(nombre),HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/filtrar/{tipoArea}")
+    public ResponseEntity<String> filter(@PathVariable("tipoArea") String tipoArea){
+        return new ResponseEntity(servicioRecurso.filtrarAreaTipo(tipoArea),HttpStatus.ACCEPTED);
+    }
+
+
+
     @PostMapping("/crear")
-    public ResponseEntity<RecursoDTO> create(@RequestBody RecursoDTO empleadoDTO) {
-        return new ResponseEntity(servicioRecurso.crear(empleadoDTO), HttpStatus.CREATED);
+    public ResponseEntity<RecursoDTO> create(@RequestBody RecursoDTO recursoDTO) {
+        return new ResponseEntity(servicioRecurso.crear(recursoDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/modificar")
-    public ResponseEntity<RecursoDTO> update(@RequestBody RecursoDTO empleadoDTO) {
-        if (empleadoDTO.getId() != null) {
-            return new ResponseEntity(servicioRecurso.modificar(empleadoDTO), HttpStatus.OK);
+    public ResponseEntity<RecursoDTO> update(@RequestBody RecursoDTO recursoDTO) {
+        if (recursoDTO.getId() != null) {
+            return new ResponseEntity(servicioRecurso.modificar(recursoDTO), HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
+
+    @PutMapping("/reservar/{nombre}")
+    public ResponseEntity<String> reservar(@PathVariable("nombre") String nombreO) throws ParseException {
+
+        return new ResponseEntity(servicioRecurso.prestar(nombreO),HttpStatus.ACCEPTED);
+
+    }
+
+    @PutMapping("/regresar/{nombre}")
+    public ResponseEntity<String> returnResource(@PathVariable("nombre") String nombre) throws ParseException {
+
+        return new ResponseEntity(servicioRecurso.devolver(nombre),HttpStatus.ACCEPTED);
+
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable("id") String id) {
@@ -50,5 +78,7 @@ public class ControladorRecurso {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
+
+
 
 }

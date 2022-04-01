@@ -1,8 +1,8 @@
 package com.example.springbootPlusMongodb.Mappers;
 
-import com.example.springbootPlusMongodb.DTOs.EmpleadoDTO;
+
 import com.example.springbootPlusMongodb.DTOs.RecursoDTO;
-import com.example.springbootPlusMongodb.collections.Empleado;
+
 import com.example.springbootPlusMongodb.collections.Recurso;
 
 import java.util.ArrayList;
